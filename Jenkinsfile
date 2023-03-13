@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Check out repo'){
             steps {
-               checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: '45314cd0-021a-4eb2-bf90-b4221bedc0f7', url: 'https://github.com/NishaChaudhry01/Assignment2_tests.git']])
+               checkout scmGit(branches: [[name: '**']], extensions: [], userRemoteConfigs: [[credentialsId: '17d17eba-b5c2-4c28-9dbc-a7ae74ca4d0e', url: 'https://github.com/NishaChaudhry01/Assignment2_tests.git']])
                 }
             }
         stage('Test') {

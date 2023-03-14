@@ -4,12 +4,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.chrome.service import Service
-import time
-#from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
-#import os
 
 
 class TestGitHubBase(unittest.TestCase):
@@ -101,7 +97,6 @@ class TestHomePage(TestGitHubBase):
         height = self.driver.execute_script("return document.body.scrollHeight")
         for scrol in range(2000,height,2000):
             self.driver.execute_script(f"window.scrollTo(0,{scrol})")
-            time.sleep(2)
 
     def test_TC08_forward_to_nextpage(self):
         sign_in = self.mywait.until(EC.element_to_be_clickable((By.XPATH,"/html/body/div[1]/div[1]/header/div/div[2]/div/div/div[2]/a")))

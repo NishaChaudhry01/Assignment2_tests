@@ -1,15 +1,18 @@
 pipeline {
     agent any
-
     stages {
-        stage('Run tests') {
+        stage('Check out repo'){
             steps {
-                dir('C:/Users/nisha/.jenkins/workspace/Tests'){ 
+                checkout scmGit(branches: [[name: '**']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/NishaChaudhry01/Assignment2_tests.git']])                }
+            }
+        stage('Test') {
+            steps {
+                dir('C:/Users/nisha/.jenkins/workspace/Nisha'){ 
                     bat 'python -m unittest'
                 }
             }
         }
-        stage('Workspace cleaning'){
+        stage('Clean Workspace'){
             steps {
                 cleanWs()
             }

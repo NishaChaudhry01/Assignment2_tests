@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Run tests') {
             steps {
-                dir('C:/Users/nisha/.jenkins/workspace/Nisha'){ 
+                dir('C:/ProgramData/Jenkins/.jenkins/workspace/Nisha'){ 
                     bat 'python -m unittest'
                 }
             }

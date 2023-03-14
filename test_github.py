@@ -53,7 +53,6 @@ class TestSignInPage(TestGitHubBase):
              
 
     def test_TC03_createaccount_link(self):
-        #self.driver.find_element(By.LINK_TEXT,"Create an account").click()
         create_account = self.mywait.until(EC.element_to_be_clickable((By.LINK_TEXT,"Create an account")))
         create_account.click()
         print("page navigated after click:",self.driver.title) 

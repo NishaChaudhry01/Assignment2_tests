@@ -58,7 +58,7 @@ class TestSignInPage(TestGitHubBase):
         print("page navigated after click:",self.driver.title) 
   
 
-    def test_TC07_back_to_previouspage(self):
+    def test_TC04_back_to_previouspage(self):
         create_account = self.mywait.until(EC.element_to_be_clickable((By.LINK_TEXT,"Create an account")))
         create_account.click()
         print("page title:",self.driver.title)
@@ -75,14 +75,14 @@ class TestHomePage(TestGitHubBase):
         print ("Test completed!")
         
 
-    def test_TC04_search_button(self):
+    def test_TC05_search_button(self):
         search = self.mywait.until(EC.element_to_be_clickable((By.NAME,"q")))
         
         search.send_keys("webpage_tests")
         search.send_keys(Keys.RETURN)
 
 
-    def test_TC05_subscribe_button(self):
+    def test_TC06_subscribe_button(self):
         height = self.driver.execute_script("return document.body.scrollHeight")
         for scrol in range(2000,height,2000):
             self.driver.execute_script(f"window.scrollTo(0,{scrol})")
@@ -92,7 +92,7 @@ class TestHomePage(TestGitHubBase):
         print("page navigated after click:",self.driver.title)
     
 
-    def test_TC06_scroll_page_slowly(self):
+    def test_TC07_scroll_page_slowly(self):
         height = self.driver.execute_script("return document.body.scrollHeight")
         for scrol in range(2000,height,2000):
             self.driver.execute_script(f"window.scrollTo(0,{scrol})")

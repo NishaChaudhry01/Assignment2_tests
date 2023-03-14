@@ -7,7 +7,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.keys import Keys
 
-
 class TestGitHubBase(unittest.TestCase):
     #To open the browser
     @classmethod

@@ -51,9 +51,9 @@ class TestSignInPage(TestGitHubBase):
         errors = self.driver.find_elements(By.CLASS_NAME,"flash-error")
         # when errors are found the login will fail
         if any(error_message in e.text for e in errors):
-            print("[!]Login failed")
+            print("Login failed")
         else:
-            print("[+]Login successful")    
+            print("Login successful")    
              
 
     def test_TC03_createaccount_link(self):

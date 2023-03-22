@@ -106,7 +106,7 @@ class TestHomePage(TestGitHubBase):
 
         self.driver.forward()
         print("Sign in page title:",self.driver.title)
-#testing
+
 
 if __name__=='__main__':
     unittest.main()

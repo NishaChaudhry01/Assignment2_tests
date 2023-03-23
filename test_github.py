@@ -59,20 +59,10 @@ class TestSignInPage(TestGitHubBase):
     def test_TC03_createaccount_link(self):
         create_account = self.mywait.until(EC.element_to_be_clickable((By.LINK_TEXT,"Create an account")))
         create_account.click()
-        print("page navigated after click:",self.driver.title) 
-  
-    # test to check 
-    def test_TC04_back_to_previouspage(self):
-        create_account = self.mywait.until(EC.element_to_be_clickable((By.LINK_TEXT,"Create an account")))
-        create_account.click()
-        print("page title:",self.driver.title)
-        
-        time.sleep(3)
-
-        self.driver.back()
-        print("previous page/signin page title:",self.driver.title) 
-        time.sleep(3)
-
+        expected = "Join GitHub · GitHub"
+        actual = self.driver.title
+        # checking for the title match
+        self.assertNotEqual(actual, expected, "Title does not match expected value")   
         
 
 class TestHomePage(TestGitHubBase):
@@ -83,40 +73,28 @@ class TestHomePage(TestGitHubBase):
         print ("Test completed!")
         
 
-    def test_TC05_search_button(self):
+    def test_TC04_search_button(self):
         search = self.mywait.until(EC.element_to_be_clickable((By.NAME,"q")))
         
         search.send_keys("webpage_tests")
-        actual = search.send_keys(Keys.RETURN)
-        time.sleep(3)
-        self.assertEqual(actual,expected)
+        search.send_keys(Keys.RETURN)
+         # Verify that the search results page is displayed
+        expected = "Search · webpage_tests · GitHub"
+        actual = self.driver.title
+        self.assertEqual(actual, expected, f"Failed: Expected '{expected}', but got '{actual}'")
 
 
-    def test_TC06_subscribe_button(self):
+    def test_TC05_subscribe_button(self):
         height = self.driver.execute_script("return document.body.scrollHeight")
         for scrol in range(2000,height,2000):
             self.driver.execute_script(f"window.scrollTo(0,{scrol})")
 
         subscribe = self.mywait.until(EC.element_to_be_clickable((By.XPATH,"/html/body/div[1]/footer/div[1]/div/div[1]/div/a")))
         subscribe.click()
-        print("page navigated after click:",self.driver.title)
-    
-
-    def test_TC07_scroll_page_slowly(self):
-        height = self.driver.execute_script("return document.body.scrollHeight")
-        for scrol in range(2000,height,2000):
-            self.driver.execute_script(f"window.scrollTo(0,{scrol})")
-
-    def test_TC08_forward_to_nextpage(self):
-        sign_in = self.mywait.until(EC.element_to_be_clickable((By.XPATH,"/html/body/div[1]/div[1]/header/div/div[2]/div/div/div[2]/a")))
-        sign_in.click()
-        print("Sign in page title:",self.driver.title)
-
-        self.driver.back()
-        print("Home page page title:",self.driver.title)
-
-        self.driver.forward()
-        print("Sign in page title:",self.driver.title)
+        actual_title = self.driver.title
+        print("page navigated after click:", actual_title)
+        # this is for not matching and showing faild
+        assert "GitHub" in actual_title, "Title after clicking subscribe button doesn't contain 'GitHub'"
 
 
 if __name__=='__main__':

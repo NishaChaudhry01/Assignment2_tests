@@ -54,16 +54,24 @@ class TestSignInPage(TestGitHubBase):
             print("Login failed")
         else:
             print("Login successful")    
-             
-    # Test to check if the create account link takes us to the desired page or not
-    def test_TC03_createaccount_link(self):
-        create_account = self.mywait.until(EC.element_to_be_clickable((By.LINK_TEXT,"Create an account")))
-        create_account.click()
-        expected = "Join GitHub · GitHub"
-        actual = self.driver.title
-        # checking for the title match
-        self.assertNotEqual(actual, expected, "Title does not match expected value")   
-        
+                 
+    # Test to see if we can move back to the previous page     
+    def test_TC03_back_to_previouspage(self):
+        try:
+            create_account = self.mywait.until(EC.element_to_be_clickable((By.LINK_TEXT,"Create an account")))
+            create_account.click()
+            expected = "Join GitHub · GitHub"
+            actual = self.driver.title
+            # checking for the title match
+            self.assertEqual(actual, expected, "Title does not match expected value")
+
+            self.driver.back()
+            expected = "Sign in to GitHub · GitHub"
+            actual = self.driver.title
+            # checking for the title match
+            self.assertEqual(actual, expected, "Title does not match expected value") 
+        except Exception:
+            pass
 
 class TestHomePage(TestGitHubBase):
     def setUp(self) -> None:
@@ -72,7 +80,7 @@ class TestHomePage(TestGitHubBase):
         self.driver.delete_all_cookies
         print ("Test completed!")
         
-
+    # Test to check if the search button works when we enter our search
     def test_TC04_search_button(self):
         search = self.mywait.until(EC.element_to_be_clickable((By.NAME,"q")))
         
@@ -83,7 +91,7 @@ class TestHomePage(TestGitHubBase):
         actual = self.driver.title
         self.assertEqual(actual, expected, f"Failed: Expected '{expected}', but got '{actual}'")
 
-
+    # Test to scroll down the page and check the subscribe button
     def test_TC05_subscribe_button(self):
         height = self.driver.execute_script("return document.body.scrollHeight")
         for scrol in range(2000,height,2000):

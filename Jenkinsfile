@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                dir('C:/Users/nisha/.jenkins/workspace/Nisha'){ 
+                dir('C:/Users/nisha/.jenkins/workspace/Nisha 2'){ 
                     bat 'python -m unittest'
                 }
             }

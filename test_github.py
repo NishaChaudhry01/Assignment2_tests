@@ -6,6 +6,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.keys import Keys
+import time
 
 class TestGitHubBase(unittest.TestCase):
     #To open the browser
@@ -28,18 +29,22 @@ class TestSignInPage(TestGitHubBase):
         self.driver.delete_all_cookies
         print ("Test completed!")
         
-
+    # Test to see if title of the page is correct
     def test_TC01_assert_title(self):
         actual = self.driver.title
         expected = "Sign in to GitHub · GitHub"
-        self.assertEqual(actual,expected)    
+        self.assertEqual(actual,expected)   
 
+ 
+    # Test to check if the login is succesfull or not
     def test_TC02_login(self):
         self.driver.find_element(By.NAME,"login").send_keys("NishaChaudhry01")
         self.driver.find_element(By.ID,"password").send_keys("Aniya4845455")
         self.driver.find_element(By.NAME,"commit").click()
+
         #wait for the login process to complete
         self.mywait.until(lambda x:x.execute_script("return document.readyState ==='complete'"))
+
         #to verify that login was successful
         error_message = "incorrect username or password"
         #retrive any errors found
@@ -50,21 +55,25 @@ class TestSignInPage(TestGitHubBase):
         else:
             print("Login successful")    
              
-
+    # Test to check if the create account link takes us to the desired page or not
     def test_TC03_createaccount_link(self):
         create_account = self.mywait.until(EC.element_to_be_clickable((By.LINK_TEXT,"Create an account")))
         create_account.click()
         print("page navigated after click:",self.driver.title) 
   
-
+    # test to check 
     def test_TC04_back_to_previouspage(self):
         create_account = self.mywait.until(EC.element_to_be_clickable((By.LINK_TEXT,"Create an account")))
         create_account.click()
         print("page title:",self.driver.title)
+        
+        time.sleep(3)
 
         self.driver.back()
         print("previous page/signin page title:",self.driver.title) 
+        time.sleep(3)
 
+        
 
 class TestHomePage(TestGitHubBase):
     def setUp(self) -> None:
@@ -78,7 +87,9 @@ class TestHomePage(TestGitHubBase):
         search = self.mywait.until(EC.element_to_be_clickable((By.NAME,"q")))
         
         search.send_keys("webpage_tests")
-        search.send_keys(Keys.RETURN)
+        actual = search.send_keys(Keys.RETURN)
+        time.sleep(3)
+        self.assertEqual(actual,expected)
 
 
     def test_TC06_subscribe_button(self):

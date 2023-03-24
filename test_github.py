@@ -103,7 +103,6 @@ class TestHomePage(TestGitHubBase):
         # this is for not matching and showing faild
         assert "GitHub" in actual_title, "Title after clicking subscribe button doesn't contain 'GitHub'"
 
-
 if __name__=='__main__':
     unittest.main()
     
